@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# adb_ctrl
-Control Android tablets via ADB over WiFi - web UI &amp; CLI for media playback, volume, and YouTube playlist management
-=======
 # ADB Tablet Controller
 
 Control your Android tablet via ADB over WiFi with a web interface and CLI client.
@@ -156,4 +152,3 @@ help      Show all commands
 - Settings saved to `settings.json`
 - **Virtual environment:** If using venv, remember to activate it before running
 - **With uv:** Use `uv run server.py` / `uv run cli_client.py` (no activation needed)
->>>>>>> 5f1a019 (starting off good.)
