@@ -249,6 +249,7 @@ def listen_for_tap():
 
 
 @app.route('/api/custom/buttons', methods=['GET'])
+def get_custom_buttons():
     """Get all custom buttons"""
     return jsonify({
         'buttons': buttons,
@@ -269,7 +270,8 @@ def add_custom_button():
     
     if x is None or y is None:
         return jsonify({'success': False, 'message': 'Missing x or y coordinate'}), 400
-    
+
+    if custom_buttons.add(name, x, y): 
         return jsonify({'success': True, 'message': f'Button "{name}" added'})
     else:
         return jsonify({'success': False, 'message': 'Button with this name already exists'}), 400
@@ -278,6 +280,7 @@ def add_custom_button():
 @app.route('/api/custom/buttons/<name>', methods=['DELETE'])
 def delete_custom_button(name):
     """Delete a custom button"""
+    if custom_buttons.remove(name):
         return jsonify({'success': True, 'message': f'Button "{name}" deleted'})
     else:
         return jsonify({'success': False, 'message': 'Button not found'}), 404
@@ -293,6 +296,7 @@ def update_custom_button(name):
     if x is None or y is None:
         return jsonify({'success': False, 'message': 'Missing x or y coordinate'}), 400
     
+    if custom_buttons.update(name, x, y):
         return jsonify({'success': True, 'message': f'Button "{name}" updated'})
     else:
         return jsonify({'success': False, 'message': 'Button not found'}), 404
@@ -301,7 +305,8 @@ def update_custom_button(name):
 @app.route('/api/custom/buttons/<name>/execute', methods=['POST'])
 def execute_custom_button(name):
     """Execute a custom button tap"""
-    
+    button = custom_buttons.get(name)
+
     if not button:
         return jsonify({'success': False, 'message': 'Button not found'}), 404
     
