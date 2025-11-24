@@ -1,0 +1,361 @@
+/* Dark Grey/Black Theme */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #2a2a2a;
+}
+
+.header h1 {
+    color: #e0e0e0;
+    font-size: 24px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.status-indicator.connected {
+    background: #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+#statusText {
+    color: #b0b0b0;
+}
+
+.btn {
+    background: #3a3a3a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    border: 1px solid #4a4a4a;
+}
+
+.btn:hover {
+    background: #4a4a4a;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn.secondary {
+    background: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+.btn.secondary:hover {
+    background: #3a3a3a;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.panel {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    border: 1px solid #2a2a2a;
+}
+
+.panel h2 {
+    color: #e0e0e0;
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4a4a4a;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.control-btn {
+    background: #242424;
+    color: #e0e0e0;
+    border: 1px solid #3a3a3a;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.control-btn:hover {
+    background: #3a3a3a;
+    border-color: #5a5a5a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+.control-btn.danger {
+    background: #2a1a1a;
+    border-color: #3a2424;
+}
+
+.control-btn.danger:hover {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.control-btn.success {
+    background: #1a2a1a;
+    border-color: #243a24;
+}
+
+.control-btn.success:hover {
+    background: #2ecc71;
+    border-color: #2ecc71;
+}
+
+.playlist-section {
+    grid-column: 1 / -1;
+}
+
+.add-url-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.add-url-form input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #0f0f0f;
+    color: #e0e0e0;
+}
+
+.add-url-form input:focus {
+    outline: none;
+    border-color: #5a5a5a;
+    box-shadow: 0 0 0 3px rgba(90, 90, 90, 0.2);
+}
+
+.add-url-form input::placeholder {
+    color: #666;
+}
+
+.playlist-items {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.playlist-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-items::-webkit-scrollbar-track {
+    background: #0f0f0f;
+    border-radius: 4px;
+}
+
+.playlist-items::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 4px;
+}
+
+.playlist-items::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+}
+
+.playlist-item {
+    background: #0f0f0f;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+    border: 1px solid #2a2a2a;
+}
+
+.playlist-item:hover {
+    background: #1a1a1a;
+    border-color: #3a3a3a;
+}
+
+.playlist-item.current {
+    background: #1a2a1a;
+    border-left: 4px solid #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
+}
+
+.playlist-item-url {
+    flex: 1;
+    color: #b0b0b0;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.playlist-item-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-btn {
+    background: #242424;
+    color: #e0e0e0;
+    border: 1px solid #3a3a3a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.icon-btn:hover {
+    background: #3a3a3a;
+    border-color: #5a5a5a;
+}
+
+.icon-btn.danger {
+    background: #2a1a1a;
+    border-color: #3a2424;
+}
+
+.icon-btn.danger:hover {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    display: none;
+    z-index: 1000;
+    border: 1px solid #2a2a2a;
+}
+
+.notification.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.success {
+    border-left: 4px solid #2ecc71;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+}
+
+.notification.error {
+    border-left: 4px solid #e74c3c;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+/* Settings input styling */
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
+    background: #0f0f0f;
+    color: #e0e0e0;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #5a5a5a;
+    box-shadow: 0 0 0 3px rgba(90, 90, 90, 0.2);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder {
+    color: #666;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}

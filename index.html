@@ -4,284 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADB Tablet Controller</title>
+    <link rel="stylesheet" href="theme-light.css" id="themeStylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            color: #333;
-            font-size: 24px;
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #e74c3c;
-        }
-
-        .status-indicator.connected {
-            background: #2ecc71;
-        }
-
-        .btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #5568d3;
-        }
-
-        .btn:active {
-            transform: scale(0.95);
-        }
-
-        .btn.secondary {
-            background: #95a5a6;
-        }
-
-        .btn.secondary:hover {
-            background: #7f8c8d;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .panel {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .panel h2 {
-            color: #333;
-            font-size: 18px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-        }
-
-        .control-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 5px;
-        }
-
-        .control-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(102,126,234,0.3);
-        }
-
-        .control-btn:active {
-            transform: translateY(0);
-        }
-
-        .control-btn.danger {
-            background: #e74c3c;
-        }
-
-        .control-btn.danger:hover {
-            background: #c0392b;
-        }
-
-        .control-btn.success {
-            background: #2ecc71;
-        }
-
-        .control-btn.success:hover {
-            background: #27ae60;
-        }
-
-        .playlist-section {
-            grid-column: 1 / -1;
-        }
-
-        .add-url-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .add-url-form input {
-            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
 
-        .add-url-form input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .playlist-items {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .playlist-item {
-            background: #f8f9fa;
-            padding: 12px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s;
-        }
-
-        .playlist-item:hover {
-            background: #e9ecef;
-        }
-
-        .playlist-item.current {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-        }
-
-        .playlist-item-url {
-            flex: 1;
-            color: #333;
-            font-size: 14px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
-
-        .playlist-item-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .icon-btn {
-            background: #667eea;
-            color: white;
-            border: none;
+        .theme-btn {
             padding: 8px 12px;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 12px;
+            transition: all 0.3s;
+            font-weight: 500;
         }
 
-        .icon-btn:hover {
-            background: #5568d3;
+        .theme-btn.light {
+            background: #667eea;
+            color: white;
         }
 
-        .icon-btn.danger {
-            background: #e74c3c;
+        .theme-btn.dark-blue {
+            background: #1e2139;
+            color: #e0e0e0;
+            border: 1px solid #3a4068;
         }
 
-        .icon-btn.danger:hover {
-            background: #c0392b;
+        .theme-btn.dark-grey {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #3a3a3a;
         }
 
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: none;
-            z-index: 1000;
+        .theme-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .notification.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        .notification.success {
-            border-left: 4px solid #2ecc71;
-        }
-
-        .notification.error {
-            border-left: 4px solid #e74c3c;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #95a5a6;
+        .theme-btn.active {
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
         }
     </style>
 </head>
 <body>
+    <div class="theme-switcher">
+        <button class="theme-btn light active" onclick="switchTheme('light')">☀️ Light</button>
+        <button class="theme-btn dark-blue" onclick="switchTheme('dark-blue')">🌙 Dark Blue</button>
+        <button class="theme-btn dark-grey" onclick="switchTheme('dark-grey')">🌑 Dark Grey</button>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>🎮 ADB Tablet Controller</h1>
@@ -368,16 +150,16 @@
                 <h2>⚙️ Settings</h2>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #666; margin-bottom: 5px;">Device IP</label>
-                        <input type="text" id="deviceIP" placeholder="10.0.90.22" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px;">
+                        <label>Device IP</label>
+                        <input type="text" id="deviceIP" placeholder="10.0.90.22">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #666; margin-bottom: 5px;">Device Port</label>
-                        <input type="number" id="devicePort" placeholder="5555" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px;">
+                        <label>Device Port</label>
+                        <input type="number" id="devicePort" placeholder="5555">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #666; margin-bottom: 5px;">Unlock PIN</label>
-                        <input type="password" id="unlockPin" placeholder="Enter PIN" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px;">
+                        <label>Unlock PIN</label>
+                        <input type="password" id="unlockPin" placeholder="Enter PIN">
                     </div>
                     <button class="btn" onclick="saveSettings()" style="width: 100%;">
                         💾 Save Settings
@@ -403,8 +185,39 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // Check status on load
+        // Theme management
+        function switchTheme(theme) {
+            const stylesheet = document.getElementById('themeStylesheet');
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            
+            // Update stylesheet
+            stylesheet.href = `theme-${theme}.css`;
+            
+            // Update active button
+            themeButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Save preference
+            localStorage.setItem('preferredTheme', theme);
+        }
+
+        // Load saved theme preference
         window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+            const stylesheet = document.getElementById('themeStylesheet');
+            stylesheet.href = `theme-${savedTheme}.css`;
+            
+            // Update active button
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            themeButtons.forEach(btn => {
+                if (btn.classList.contains(savedTheme)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Initialize other functionality
             checkStatus();
             loadPlaylist();
             loadSettings();
